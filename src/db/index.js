@@ -1,34 +1,26 @@
 import { database, createdAt } from "../firebaseConfig";
+// import { v4 as uuidv4 } from "uuid";
 
-export function add(title, date, uid) {
+export async function add(title, date, userID) {
 	if (!title || !date) return;
-	database.add({
-		details: {
-			card: {
-				title,
-				date,
-			},
-			createdAt,
-		},
-		userID: uid,
+	await database.add({
+		title,
+		date,
+		createdAt,
+		userID,
 	});
 }
 
-export function getAllUserTodos() {
+export function getAllCards() {
 	database.get().then((snapshot) => {
 		snapshot.docs.forEach((doc) => console.log(doc.data()));
 	});
 }
-// export const unsubscribe = database.get().then(snapshot => {
-// 	const data = snapshot.docs.forEach(doc => {
-// 		 {id: doc.id, ...doc.data() };
-// 		//setTodos();
-// 	});
-// });
-
-export function updateData() {
-	database.docs("").update({});
+export function updateCard(userID, card) {
+	database.docs(card.id).update({
+		// details,
+	});
 }
-export function deleteCard(id) {
-	database.doc(id).delete();
+export async function deleteCard(id) {
+	await database.doc(id).delete();
 }

@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 
 export default function Timer({ eventDate }) {
 	const calculateTimeLeft = () => {
-		const difference = +new Date(eventDate) - +new Date();
+		const difference =
+			+new Date(eventDate.toDate().toLocaleString()) - +new Date();
 		let timeLeft = {};
 
 		if (difference > 0) {

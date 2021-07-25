@@ -3,11 +3,11 @@ export const ShowMessage = (
 	description,
 	status,
 	fn,
-	duration = 3500
+	duration = 1000
 ) => {
 	return fn({
 		title,
-		position: "bottom-right",
+		position: "top",
 		description: JSON.stringify(description),
 		status,
 		duration,
