@@ -11,7 +11,7 @@ const firebaseConfig = {
 
 firebase.initializeApp(firebaseConfig);
 
-const database = firebase.firestore().collection("User Timers");
+const database = firebase.firestore().collection("users");
 const auth = firebase.auth();
 
 const createdAt = firebase.firestore.FieldValue.serverTimestamp();

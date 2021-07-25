@@ -10,14 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useAuth } from "../authContext";
+import { useAuth } from "../context/auth";
 
 export default function Signup() {
 	const history = useHistory();
 	const { signup, currentUser } = useAuth();
 
 	const info = {
-		name: "",
 		email: "",
 		password: "",
 	};
@@ -37,18 +36,18 @@ export default function Signup() {
 		setInputValues({ ...inputValues, [name]: value });
 	};
 
-	const { name, email, password } = inputValues;
+	const { email, password } = inputValues;
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		setInputValues({ name: "", email: "", password: "" });
+		setInputValues({ email: "", password: "" });
 
 		try {
 			setError("");
 			setLoading(true);
 			await signup(email, password);
-			history.push("/");
+			history.push("/set-name");
 		} catch (err) {
 			//setError(err)
 			setError(
@@ -62,19 +61,7 @@ export default function Signup() {
 	return (
 		<Box w={["95%", "50%"]} mx="auto">
 			<Box mt="" p="2">
-				<FormControl id="name" mt="20" mb="3">
-					<FormLabel>Name</FormLabel>
-					<Input
-						type="name"
-						name="name"
-						value={name}
-						onChange={handleChange}
-						p="6"
-						fontSize="lg"
-					/>
-				</FormControl>
-
-				<FormControl id="email" mb="3">
+				<FormControl id="email" mt="20" mb="3">
 					<FormLabel>Email address</FormLabel>
 					<Input
 						type="email"
@@ -111,7 +98,7 @@ export default function Signup() {
 
 			<Box ml="2" textAlign="center">
 				Already have an account?{" "}
-				<Link to="/login" color="yellow.400">
+				<Link href="/login" color="yellow.400">
 					Log In
 				</Link>
 			</Box>

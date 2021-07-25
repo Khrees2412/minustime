@@ -1,0 +1,16 @@
+.datepicker {
+	width: 310px;
+	margin: auto;
+	padding: 15px 14px;
+	cursor: pointer;
+	border: 1px solid #ccc;
+	border-radius: 0.45rem;
+	outline: none;
+	font-size: large;
+	font-weight: 500;
+}
+@media only screen and (min-width: 1140px) {
+	.datepicker {
+		width: 400px;
+	}
+}

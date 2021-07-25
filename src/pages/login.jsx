@@ -9,7 +9,7 @@ import {
 	FormHelperText,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useAuth } from "../authContext";
+import { useAuth } from "../context/auth";
 import { useHistory } from "react-router-dom";
 
 export default function Login() {
@@ -96,7 +96,7 @@ export default function Login() {
 
 			<Box ml="2" textAlign="center">
 				Need an account?{" "}
-				<Link to="/signup" color="yellow.400">
+				<Link href="/signup" color="yellow.400">
 					Sign Up
 				</Link>
 			</Box>
