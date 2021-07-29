@@ -3,13 +3,17 @@ import { database, createdAt } from "../firebaseConfig";
 
 export async function add(title, date, userID) {
 	if (!title || !date) return;
+	// try {
 	await database.add({
 		title,
 		date,
 		createdAt,
 		userID,
 	});
+	// } catch (error) {
+	// return error;
 }
+// }
 
 export function getAllCards() {
 	database.get().then((snapshot) => {

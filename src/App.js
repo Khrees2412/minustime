@@ -12,7 +12,7 @@ function App() {
 	return (
 		<Router>
 			<AuthProvider>
-				<Box bgColor="brand.secondary" h="100vh" color="white">
+				<Box bgColor="brand.primary" h="100vh" color="brand.secondary">
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route path="/signup" component={Signup} />

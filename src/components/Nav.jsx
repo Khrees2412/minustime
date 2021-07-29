@@ -5,9 +5,8 @@ import {
 	Button,
 	CloseButton,
 	Divider,
-	useColorMode,
 } from "@chakra-ui/react";
-import { HamburgerIcon, MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { HamburgerIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
@@ -31,7 +30,6 @@ const Nav = (props) => {
 	const [show, setShow] = useState(false);
 	const toggleMenu = () => setShow(!show);
 
-	// const { colorMode, toggleColorMode } = useColorMode();
 	return (
 		<Flex
 			as="nav"
@@ -40,8 +38,8 @@ const Nav = (props) => {
 			wrap="wrap"
 			w="100%"
 			mb={5}
-			p={4}
-			bg="white"
+			p={3}
+			bg="brand.primary"
 			color="brand.secondary"
 			{...props}
 		>
@@ -49,19 +47,6 @@ const Nav = (props) => {
 				MinusTime
 			</Flex>
 			<Flex align="center">
-				{/* <Box
-					display={{ base: "block", md: "none" }}
-					mr={{ base: "2", lg: "0" }}
-					cursor="pointer"
-					onClick={toggleColorMode}
-				>
-					{colorMode === "light" ? (
-						<MoonIcon boxSize={6} />
-					) : (
-						<SunIcon boxSize={8} />
-					)} 
-				</Box>
-*/}
 				<Box
 					display={{ base: "block", md: "none" }}
 					ml="2"
@@ -91,18 +76,6 @@ const Nav = (props) => {
 					direction={["column", "row", "row", "row"]}
 					pt={[4, 8, 0, 0]}
 				>
-					{/* <Box
-						display={{ base: "none", lg: "block" }}
-						mr={{ lg: "4" }}
-						cursor="pointer"
-						onClick={toggleColorMode}
-					>
-						{colorMode === "light" ? (
-							<MoonIcon boxSize={6} />
-						) : (
-							<SunIcon boxSize={8} />
-						)}
-					</Box> */}
 					<MenuItems
 						_hover={{
 							shadow: "outline",
@@ -128,15 +101,11 @@ const Nav = (props) => {
 						<Button
 							size="sm"
 							rounded="md"
-							color="red.500"
-							bg="white"
+							color="brand.secondary"
+							bgColor="brand.primary"
 							_hover={{
-								bg: [
-									"primary.100",
-									"primary.100",
-									"primary.600",
-									"primary.600",
-								],
+								bgColor: "brand.secondary",
+								color: "brand.primary",
 							}}
 						>
 							Create Account

@@ -17,11 +17,11 @@ import {
 	ModalCloseButton,
 	useToast,
 } from "@chakra-ui/react";
-import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import Loading from "../components/Loading";
 import Card from "../components/Card";
-import { ShowMessage } from "../utils/toast";
+import { useEffect, useState } from "react";
+import { showMessage } from "../utils/toast";
 import { useAuth } from "../context/auth";
 import { add, deleteCard } from "../db";
 import { database } from "../firebaseConfig";
@@ -62,17 +62,20 @@ export default function Dashboard() {
 
 	const addCard = (title, date) => {
 		if (card.length < 4) {
-			setLoading(true);
+			// const err =
 			add(title, date, userID);
 			setLoading(false);
-			ShowMessage(
-				"Timer created!",
-				"A new timer card has been created ",
-				"success",
-				toast
-			);
+			// if (err) console.error;
+			setTimeout(() => {
+				showMessage(
+					"Timer created!",
+					"A new timer card has been created ",
+					"success",
+					toast
+				);
+			}, 1000);
 		} else {
-			ShowMessage(
+			showMessage(
 				"Could not create timer!",
 				"The timer could not be created because you  have reached the limit for timers you can create",
 				"error",
@@ -91,18 +94,18 @@ export default function Dashboard() {
 
 		setLoading(false);
 		setTimeout(() => {
-			ShowMessage(
+			showMessage(
 				"Timer deleted!",
 				"The timer card has been deleted",
 				"success",
 				toast
 			);
-		}, 2000);
+		}, 1000);
 	};
 
 	const handleSubmit = (title, date) => {
 		if (title.length < 1 || !date) {
-			ShowMessage(
+			showMessage(
 				"Incomplete Form",
 				"Please make sure your fill all input",
 				"error",
@@ -124,8 +127,9 @@ export default function Dashboard() {
 			alignItems="center"
 			justifyContent="center"
 			flexDirection="column"
+			bgColor="brand.primary"
 		>
-			<Flex justifyContent="space-between" mt="16">
+			<Flex justifyContent="space-between" direction="column" mt="16">
 				<Text>
 					Welcome
 					<Text
@@ -195,7 +199,10 @@ export default function Dashboard() {
 
 						<ModalFooter>
 							<Button
-								onClick={() => handleSubmit(title, startDate)}
+								onClick={() => {
+									setLoading(true);
+									handleSubmit(title, startDate);
+								}}
 								w="100%"
 								p="6"
 								color="white"

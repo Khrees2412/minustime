@@ -5,11 +5,20 @@ import Timer from "../utils/timer";
 export default function Card({ eventDate, title, deleteUserCard, id }) {
 	return (
 		<>
-			<Box p="6" border="white" borderRadius="1" mb="3">
+			<Box
+				p="6"
+				border="white"
+				borderRadius="4"
+				mb="3"
+				bgColor="brand.light"
+				w="300px"
+			>
 				<Text color="orange.500" fontWeight="bold">
 					{title}
 				</Text>
-				<Timer eventDate={eventDate} />
+				<Box fontWeight="bold" fontSize="lg">
+					<Timer eventDate={eventDate} />
+				</Box>
 				<Button
 					bgColor="red.600"
 					color="white"

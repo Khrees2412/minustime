@@ -1,9 +1,9 @@
-export const ShowMessage = (
+export const showMessage = (
 	title = "",
 	description,
 	status,
 	fn,
-	duration = 1000
+	duration = 2000
 ) => {
 	return fn({
 		title,
