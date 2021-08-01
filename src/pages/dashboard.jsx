@@ -4,6 +4,10 @@ import {
 	Flex,
 	Button,
 	Input,
+	Spinner,
+	Center,
+	Divider,
+	Grid,
 	Textarea,
 	FormControl,
 	FormLabel,
@@ -23,7 +27,7 @@ import Card from "../components/Card";
 import { useEffect, useState } from "react";
 import { showMessage } from "../utils/toast";
 import { useAuth } from "../context/auth";
-import { add, deleteCard } from "../db";
+import { useDb } from "../context/db";
 import { database } from "../firebaseConfig";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datepicker.css";
@@ -31,10 +35,10 @@ import "./datepicker.css";
 export default function Dashboard() {
 	const toast = useToast();
 	const { currentUser, logout } = useAuth();
+	const { addCard, deleteCard, loading } = useDb();
 	const displayName = currentUser?.displayName;
 	const userID = currentUser?.uid;
 
-	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 
 	const [startDate, setStartDate] = useState(false);
@@ -60,12 +64,9 @@ export default function Dashboard() {
 		return () => _unsubscribe;
 	}, [userID, card]);
 
-	const addCard = (title, date) => {
+	const add = (title, date) => {
 		if (card.length < 4) {
-			// const err =
-			add(title, date, userID);
-			setLoading(false);
-			// if (err) console.error;
+			addCard(title, date, userID);
 			setTimeout(() => {
 				showMessage(
 					"Timer created!",
@@ -73,7 +74,7 @@ export default function Dashboard() {
 					"success",
 					toast
 				);
-			}, 1000);
+			}, 2000);
 		} else {
 			showMessage(
 				"Could not create timer!",
@@ -85,14 +86,8 @@ export default function Dashboard() {
 	};
 
 	const deleteUserCard = (id) => {
-		try {
-			setLoading(true);
-			deleteCard(id);
-		} catch (err) {
-			console.error(err);
-		}
+		deleteCard(id);
 
-		setLoading(false);
 		setTimeout(() => {
 			showMessage(
 				"Timer deleted!",
@@ -100,7 +95,7 @@ export default function Dashboard() {
 				"success",
 				toast
 			);
-		}, 1000);
+		}, 2000);
 	};
 
 	const handleSubmit = (title, date) => {
@@ -112,7 +107,7 @@ export default function Dashboard() {
 				toast
 			);
 		} else {
-			addCard(title, date);
+			add(title, date);
 			onClose();
 		}
 
@@ -121,45 +116,45 @@ export default function Dashboard() {
 	};
 
 	return (
-		<Box
-			w="70%"
-			d="flex"
-			alignItems="center"
-			justifyContent="center"
-			flexDirection="column"
-			bgColor="brand.primary"
-		>
-			<Flex justifyContent="space-between" direction="column" mt="16">
-				<Text>
-					Welcome
-					<Text
-						ml="3"
-						color="pink.600"
-						fontSize="lg"
-						fontWeight="bold"
-					>
-						{displayName ? displayName : "User"}
-					</Text>
-				</Text>
-			</Flex>
-			<Text></Text>
-			{!loading ? (
-				card.length > 0 &&
-				card.map((c, idx) => (
-					<Card
-						key={idx}
-						id={c.id}
-						eventDate={c.date ? c.date : "Dec 24 2021, 00:00:00 am"}
-						title={c.title}
-						deleteUserCard={deleteUserCard}
-					/>
-				))
-			) : (
-				<Loading />
-			)}
-			<Button color="brand.btn" onClick={onOpen} mt="5">
-				Create a Countdown!
-			</Button>
+		<Box vh="100%" bgColor="brand.primary">
+			<Nav displayName={displayName} logout={logout} />
+			<Box bgColor="brand.light">
+				<Divider />
+			</Box>
+			<Center mt="5" mb="8">
+				<Button color="brand.btn" onClick={onOpen} mt="5">
+					Create a Countdown!
+				</Button>
+			</Center>
+			<Box mt="20" w="70%" mx="auto">
+				<Grid
+					templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
+					gap={[2, 4]}
+				>
+					{!loading ? (
+						card.length > 0 &&
+						card.map((c, idx) => (
+							<Card
+								key={idx}
+								id={c.id}
+								eventDate={
+									c.date ? c.date : "Dec 24 2021, 00:00:00 am"
+								}
+								title={c.title}
+								deleteUserCard={deleteUserCard}
+							/>
+						))
+					) : (
+						<Loading />
+					)}
+				</Grid>
+			</Box>
+			<Center>
+				<Button color="brand.btn" onClick={onOpen} mt="5" mb="10">
+					{card.length === 6 ? "" : "Add another timer card"}
+				</Button>
+			</Center>
+
 			<Box>
 				<Modal isOpen={isOpen} onClose={onClose}>
 					<ModalOverlay />
@@ -190,7 +185,7 @@ export default function Dashboard() {
 									onChange={(date) => {
 										setStartDate(date);
 									}}
-									placeholderText="Pick your date "
+									placeholderText="Pick a date "
 									dateFormat="MMMM d, yyyy h:mm aa"
 									className="datepicker"
 								/>
@@ -200,7 +195,6 @@ export default function Dashboard() {
 						<ModalFooter>
 							<Button
 								onClick={() => {
-									setLoading(true);
 									handleSubmit(title, startDate);
 								}}
 								w="100%"
@@ -215,14 +209,38 @@ export default function Dashboard() {
 					</ModalContent>
 				</Modal>
 			</Box>
-			<Button
-				color="brand.secondary"
-				mt="10"
-				hover={{ color: "brand.secondary" }}
-				onClick={() => logout()}
-			>
-				LOG OUT
-			</Button>
 		</Box>
 	);
 }
+
+const Nav = ({ displayName, logout }) => (
+	<Flex
+		justifyContent="space-between"
+		alignItems="center"
+		bgColor="#121212"
+		color="brand.secondary"
+		w="100%"
+		p="6"
+	>
+		<Box>
+			<Text
+				ml="2"
+				color="pink.600"
+				textTransform="uppercase"
+				fontSize="lg"
+				fontWeight="bold"
+			>
+				Welcome {displayName ? displayName : "User"}
+			</Text>
+		</Box>
+		<Button
+			bgColor="brand.blue"
+			color="white"
+			p="3"
+			hover={{ color: "brand.secondary" }}
+			onClick={() => logout()}
+		>
+			LOG OUT
+		</Button>
+	</Flex>
+);

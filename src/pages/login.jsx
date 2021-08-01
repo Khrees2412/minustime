@@ -27,7 +27,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (currentUser) {
-			history.push("/");
+			history.push("/dashboard");
 		}
 	});
 

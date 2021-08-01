@@ -92,9 +92,9 @@ const Nav = (props) => {
 							p: "1",
 							borderRadius: "3px",
 						}}
-						to="/"
+						to="/login"
 					>
-						How It works
+						Login
 					</MenuItems>
 
 					<MenuItems to="/signup" isLast>
@@ -102,7 +102,7 @@ const Nav = (props) => {
 							size="sm"
 							rounded="md"
 							color="brand.secondary"
-							bgColor="brand.primary"
+							bgColor="#121212"
 							_hover={{
 								bgColor: "brand.secondary",
 								color: "brand.primary",
