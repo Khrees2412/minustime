@@ -14,7 +14,7 @@ export default function Timer({ eventDate }) {
 		// Update the count down every 1 second
 		const x = setInterval(() => {
 			// Get today's date and time
-			const now = new Date().getTime();
+			// const now = new Date().getTime();
 
 			// Find the distance between now and the count down date
 			const distance =

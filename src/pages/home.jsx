@@ -1,12 +1,4 @@
-import {
-	Box,
-	Flex,
-	Text,
-	Center,
-	Link,
-	Heading,
-	Image,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, Heading, Image } from "@chakra-ui/react";
 import Typed from "react-typed";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";

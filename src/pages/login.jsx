@@ -11,6 +11,7 @@ import {
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/auth";
 import { useHistory } from "react-router-dom";
+import Loading from "../components/Loading";
 
 export default function Login() {
 	const history = useHistory();
@@ -56,9 +57,10 @@ export default function Login() {
 		setLoading(false);
 	};
 
-	return (
+	return !loading ? (
 		<Box w={["95%", "50%"]} mx="auto">
 			<Box mt="" p="2">
+				<FormErrorMessage>{error}</FormErrorMessage>
 				<FormControl id="email" mt="20" mb="3">
 					<FormLabel>Email address</FormLabel>
 					<Input
@@ -101,5 +103,7 @@ export default function Login() {
 				</Link>
 			</Box>
 		</Box>
+	) : (
+		<Loading />
 	);
 }

@@ -3,8 +3,6 @@ import {
 	Text,
 	Flex,
 	Button,
-	Input,
-	Spinner,
 	Center,
 	Divider,
 	Grid,
@@ -39,7 +37,7 @@ export default function Dashboard() {
 	const displayName = currentUser?.displayName;
 	const userID = currentUser?.uid;
 
-	const [error, setError] = useState(null);
+	// const [error, setError] = useState(null);
 
 	const [startDate, setStartDate] = useState(false);
 	const [title, setTitle] = useState("");

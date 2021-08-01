@@ -19,9 +19,7 @@ const MenuItems = (props) => {
 			display="block"
 			{...rest}
 		>
-			<Link to={to}>
-				<a>{children}</a>
-			</Link>
+			<Link to={to}>{children}</Link>
 		</Text>
 	);
 };
