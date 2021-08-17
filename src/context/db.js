@@ -1,5 +1,7 @@
-import { useContext, useState, createContext } from "react";
+import { useContext, useState, useEffect, createContext } from "react";
 import { database, createdAt } from "../firebaseConfig";
+import { useAuth } from "./auth";
+
 
 const DbContext = createContext();
 
@@ -8,7 +10,28 @@ export function useDb() {
 }
 
 export function DbProvider({ children }) {
+	const { currentUser} = useAuth();
+
 	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState(null);
+	const [card, setCard] = useState([]);
+
+	const userID = currentUser?.uid;
+
+
+
+useEffect(() => {
+		const _unsubscribe = database
+			.where("userID", "==", userID)
+			.onSnapshot((snapshot) => {
+				const data = snapshot.docs.map((doc) => ({
+					id: doc.id,
+					...doc.data(),
+				}));
+				setCard(data);
+			});
+		return () => _unsubscribe;
+	}, [userID, card]);
 
 	async function addCard(title, date, userID) {
 		if (!title || !date) return;
@@ -23,16 +46,27 @@ export function DbProvider({ children }) {
 			setLoading(false);
 		} catch (err) {
 			console.error(err);
+			setError(err.message);
 		}
 	}
 
 	function getAllPublicCards() {
 		database.get().then((snapshot) => {
-			snapshot.docs.forEach((doc) => console.log(doc.data()));
+			snapshot.docs.forEach((doc) => console.log(...doc.data()));
 		});
 	}
-	function updateCard(userID, card) {
-		database.docs(card.id).update({});
+	async function updateCard( card) {
+		try {
+			setLoading(true);
+			await database.docs(card.id).update({
+				title: card.title,
+				date: card.date,
+			});
+			setLoading(false);
+		} catch (err) {
+			console.error(err);
+			setError(err.message);
+		}
 	}
 	async function deleteCard(id) {
 		try {
@@ -41,10 +75,13 @@ export function DbProvider({ children }) {
 			setLoading(false);
 		} catch (err) {
 			console.error(err);
+			setError(err.message);
 		}
 	}
 
 	const value = {
+		card,
+		error,
 		loading,
 		updateCard,
 		deleteCard,

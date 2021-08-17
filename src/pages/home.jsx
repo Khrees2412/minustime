@@ -1,4 +1,4 @@
-import { Box, Flex, Link, Heading, Image } from "@chakra-ui/react";
+import { Box, Flex, Link, Heading, Image, Text } from "@chakra-ui/react";
 import Typed from "react-typed";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -15,33 +15,33 @@ export default function Home() {
 				justifyContent="space-around"
 				w={["80%", "initial"]}
 				mx="auto"
-				h="500px"
+				my="10"
+				h={["70vh", "500px"]}
 				bgColor="brand.primary"
 				color="brand.light"
 			>
 				<Box>
 					<Box mt="10">
-						<Heading fontSize={["4xl", "6xl"]}>
+						<Heading fontSize={["4xl", "6xl"]} mb={["2", "5"]}>
 							How long until
 						</Heading>
 						<Heading
-							fontSize={["5xl", "7xl"]}
+							fontSize={["5xl", "6xl"]}
 							bgGradient="linear(to-r, pink.600, purple.600)"
 							bgClip="text"
 						>
 							<Typed
 								strings={[
 									"my birthday?",
-									"Christmas?",
-									"my graduation?",
-									"the New Year?",
+									"christmas?",
+									"the holiday?",
 								]}
-								typeSpeed={40}
+								typeSpeed={30}
 								loop
 							></Typed>
 						</Heading>
 					</Box>
-					<Box mt="20">
+					<Box mt={["10", "20"]} mb="10">
 						<Link
 							href="/signup"
 							p="3"
@@ -56,56 +56,77 @@ export default function Home() {
 					</Box>
 				</Box>
 
-				<Image src={event} alt="event" w="350px" h="450px" />
+				<Image
+					src={event}
+					alt="event"
+					w="350px"
+					h={["320px", "450px"]}
+				/>
 			</Flex>
+
 			<Flex
 				direction={["column", "row"]}
 				justifyContent="space-around"
-				w={["80%", "initial"]}
+				w={["100%", "initial"]}
 				mx="auto"
-				h="500px"
+				my="10"
+				h={["70vh", "500px"]}
 				bgColor="brand.light"
 				color="#121212"
-				p="5"
+				borderBottom="2px solid purple"
 			>
-				<Box fontWeight="bold" mt="20">
-					<Heading fontSize={["5xl", "7xl"]}>
+				<Box fontWeight="bold" mt="15" p="5">
+					<Heading fontSize={["4xl", "5xl"]} textAlign="center">
 						Create the coolest
 					</Heading>
 					<Heading
-						fontSize={["5xl", "7xl"]}
+						fontSize={["5xl", "6xl"]}
 						bgGradient="linear(to-r, pink.500, brand.blue)"
 						bgClip="text"
+						textAlign="center"
 					>
 						Countdown Timers
 					</Heading>
 				</Box>
-				<Image src={season} alt="clock" w="350px" h="450px" />
+				<Image
+					src={season}
+					alt="clock"
+					w="350px"
+					h={["320px", "450px"]}
+					p="5"
+					mb="10"
+				/>
 			</Flex>
+
 			<Flex
 				direction={["column", "row"]}
 				justifyContent="space-around"
 				w={["80%", "initial"]}
 				mx="auto"
-				h="500px"
-				p="5"
+				my="10"
+				h={["60vh", "500px"]}
 			>
 				<Box mt="20">
-					<Heading fontSize={["4xl", "6xl"]}>
+					<Heading fontSize={["4xl", "5xl"]} mb="5">
 						Never lose track of your most
-					</Heading>
-					<Heading
-						fontSize={["5xl", "7xl"]}
-						bgGradient="linear(to-r, pink.600, purple.600)"
-						bgClip="text"
-					>
-						important events
+						<Text
+							bgGradient="linear(to-r, pink.600, purple.600)"
+							bgClip="text"
+						>
+							important events
+						</Text>
 					</Heading>
 				</Box>
 
-				<Image src={schedule} alt="schedule" w="350px" h="450px" />
+				<Image
+					src={schedule}
+					alt="scheduler"
+					w="350px"
+					h={["320px", "450px"]}
+					p="5"
+					my="10"
+				/>
 			</Flex>
-
 			<Footer />
 		</>
 	);

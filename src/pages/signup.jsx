@@ -52,14 +52,14 @@ export default function Signup() {
 		} catch (err) {
 			//setError(err)
 			setError(
-				"An Error Occured. \n Failed to create an account. \n Try Again"
+				err.message
 			);
 		}
 
 		setLoading(false);
 	};
 
-	return !loading ? (
+	return loading ?  <Loading />  : (
 		<Box w={["95%", "50%"]} mx="auto">
 			<Box mt="" p="2">
 				<FormErrorMessage>{error}</FormErrorMessage>
@@ -106,7 +106,5 @@ export default function Signup() {
 				</Link>
 			</Box>
 		</Box>
-	) : (
-		<Loading />
 	);
 }

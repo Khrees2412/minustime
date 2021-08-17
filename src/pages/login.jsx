@@ -50,14 +50,14 @@ export default function Login() {
 			await login(email, password);
 			history.push("/dashboard");
 		} catch (err) {
-			//setError(err)
-			setError("An Error Occured. \n Failed to login \n Try Again");
+			setError(err.message)
 		}
 
 		setLoading(false);
 	};
 
-	return !loading ? (
+	return loading ? <Loading /> : (
+		
 		<Box w={["95%", "50%"]} mx="auto">
 			<Box mt="" p="2">
 				<FormErrorMessage>{error}</FormErrorMessage>
@@ -103,7 +103,5 @@ export default function Login() {
 				</Link>
 			</Box>
 		</Box>
-	) : (
-		<Loading />
 	);
 }

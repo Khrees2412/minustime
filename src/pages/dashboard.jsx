@@ -33,15 +33,12 @@ import "./datepicker.css";
 export default function Dashboard() {
 	const toast = useToast();
 	const { currentUser, logout } = useAuth();
-	const { addCard, deleteCard, loading } = useDb();
-	const displayName = currentUser?.displayName;
-	const userID = currentUser?.uid;
+	const { addCard, deleteCard, loading, error, card } = useDb();
 
-	// const [error, setError] = useState(null);
+	const displayName = currentUser?.displayName;
 
 	const [startDate, setStartDate] = useState(false);
 	const [title, setTitle] = useState("");
-	const [card, setCard] = useState([]);
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -49,21 +46,8 @@ export default function Dashboard() {
 		setTitle(e.target.value);
 	};
 
-	useEffect(() => {
-		const _unsubscribe = database
-			.where("userID", "==", userID)
-			.onSnapshot((snapshot) => {
-				const data = snapshot.docs.map((doc) => ({
-					id: doc.id,
-					...doc.data(),
-				}));
-				setCard(data);
-			});
-		return () => _unsubscribe;
-	}, [userID, card]);
-
 	const add = (title, date) => {
-		if (card.length < 4) {
+		if (card.length < 6) {
 			addCard(title, date, userID);
 			setTimeout(() => {
 				showMessage(
@@ -129,22 +113,27 @@ export default function Dashboard() {
 					templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
 					gap={[2, 4]}
 				>
-					{!loading ? (
-						card.length > 0 &&
-						card.map((c, idx) => (
-							<Card
-								key={idx}
-								id={c.id}
-								eventDate={
-									c.date ? c.date : "Dec 24 2021, 00:00:00 am"
-								}
-								title={c.title}
-								deleteUserCard={deleteUserCard}
-							/>
-						))
-					) : (
-						<Loading />
-					)}
+					{
+						loading ? (
+							<Loading />
+						) : (
+							card.length > 0 &&
+							card.map((c, idx) => (
+								<Card
+									key={idx}
+									id={c.id}
+									eventDate={
+										c.date
+											? c.date
+											: "Dec 24 2021, 00:00:00 am"
+									}
+									title={c.title}
+									deleteUserCard={deleteUserCard}
+								/>
+							))
+						)
+						// : "You don't have any timer cards yet.. Start creating!"
+					}
 				</Grid>
 			</Box>
 			<Center>
