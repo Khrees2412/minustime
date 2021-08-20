@@ -2,7 +2,6 @@ import { useContext, useState, useEffect, createContext } from "react";
 import { database, createdAt } from "../firebaseConfig";
 import { useAuth } from "./auth";
 
-
 const DbContext = createContext();
 
 export function useDb() {
@@ -10,19 +9,17 @@ export function useDb() {
 }
 
 export function DbProvider({ children }) {
-	const { currentUser} = useAuth();
+	const { currentUser } = useAuth();
 
 	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [card, setCard] = useState([]);
 
-	const userID = currentUser?.uid;
+	const uid = currentUser?.uid;
 
-
-
-useEffect(() => {
-		const _unsubscribe = database
-			.where("userID", "==", userID)
+	useEffect(() => {
+		const unsubscribe = database
+			.where("userID", "==", uid)
 			.onSnapshot((snapshot) => {
 				const data = snapshot.docs.map((doc) => ({
 					id: doc.id,
@@ -30,8 +27,8 @@ useEffect(() => {
 				}));
 				setCard(data);
 			});
-		return () => _unsubscribe;
-	}, [userID, card]);
+		return () => unsubscribe;
+	}, [uid, card]);
 
 	async function addCard(title, date, userID) {
 		if (!title || !date) return;
@@ -55,7 +52,7 @@ useEffect(() => {
 			snapshot.docs.forEach((doc) => console.log(...doc.data()));
 		});
 	}
-	async function updateCard( card) {
+	async function updateCard(card) {
 		try {
 			setLoading(true);
 			await database.docs(card.id).update({
@@ -80,6 +77,7 @@ useEffect(() => {
 	}
 
 	const value = {
+		uid,
 		card,
 		error,
 		loading,

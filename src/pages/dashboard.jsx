@@ -10,6 +10,10 @@ import {
 	FormControl,
 	FormLabel,
 	useDisclosure,
+	Menu,
+	MenuItem,
+	MenuList,
+	MenuButton,
 	Modal,
 	ModalOverlay,
 	ModalContent,
@@ -19,21 +23,21 @@ import {
 	ModalCloseButton,
 	useToast,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import DatePicker from "react-datepicker";
 import Loading from "../components/Loading";
 import Card from "../components/Card";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { showMessage } from "../utils/toast";
 import { useAuth } from "../context/auth";
 import { useDb } from "../context/db";
-import { database } from "../firebaseConfig";
 import "react-datepicker/dist/react-datepicker.css";
 import "./datepicker.css";
 
 export default function Dashboard() {
 	const toast = useToast();
 	const { currentUser, logout } = useAuth();
-	const { addCard, deleteCard, loading, error, card } = useDb();
+	const { addCard, deleteCard, loading, error, card, uid } = useDb();
 
 	const displayName = currentUser?.displayName;
 
@@ -48,7 +52,7 @@ export default function Dashboard() {
 
 	const add = (title, date) => {
 		if (card.length < 6) {
-			addCard(title, date, userID);
+			addCard(title, date, uid);
 			setTimeout(() => {
 				showMessage(
 					"Timer created!",
@@ -69,7 +73,6 @@ export default function Dashboard() {
 
 	const deleteUserCard = (id) => {
 		deleteCard(id);
-
 		setTimeout(() => {
 			showMessage(
 				"Timer deleted!",
@@ -200,7 +203,9 @@ export default function Dashboard() {
 	);
 }
 
-const Nav = ({ displayName, logout }) => (
+function Nav({ displayName, logout }) {
+	const { _, onOpen, _ } = useDisclosure();
+
 	<Flex
 		justifyContent="space-between"
 		alignItems="center"
@@ -220,6 +225,17 @@ const Nav = ({ displayName, logout }) => (
 				Welcome {displayName ? displayName : "User"}
 			</Text>
 		</Box>
+		<Box>
+			<Menu>
+				<MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+					Account Settings
+				</MenuButton>
+				<MenuList>
+					{/* <MenuItem onClick={POpen}>Change Password</MenuItem>
+    <MenuItem onClick={EOpen}>Change Email</MenuItem> */}
+				</MenuList>
+			</Menu>
+		</Box>
 		<Button
 			bgColor="brand.blue"
 			color="white"
@@ -229,5 +245,121 @@ const Nav = ({ displayName, logout }) => (
 		>
 			LOG OUT
 		</Button>
-	</Flex>
-);
+	</Flex>;
+}
+
+function ChangePassword() {
+	const toast = useToast();
+	const { updatePassword } = useAuth();
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [password, setPassword] = useState("");
+
+	const handleChange = (e) => {
+		setPassword(e.target.value);
+	};
+	const handleSubmit = () => {
+		updatePassword(password);
+		setTimeout(() => {
+			showMessage("Password changed successfully", "", "success", toast);
+		}, 2000);
+	};
+	return (
+		<Box>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>
+						To change your password simply enter the new password
+						below
+					</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<FormControl id="" mb="3">
+							<FormLabel>Password</FormLabel>
+							<Textarea
+								name="passwordchange"
+								value={password}
+								onChange={handleChange}
+								p="2"
+								fontSize="md"
+							/>
+						</FormControl>
+					</ModalBody>
+
+					<ModalFooter>
+						<Button
+							onClick={() => {
+								handleSubmit(email);
+							}}
+							w="100%"
+							p="6"
+							color="white"
+							bgColor="brand.secondary"
+							_hover={{ bgColor: "brand.secondary" }}
+						>
+							Submit
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+		</Box>
+	);
+}
+
+function ChangeEmail() {
+	const toast = useToast();
+	const { updateEmail } = useAuth();
+
+	const { isOpen, onOpen, onClose } = useDisclosure();
+	const [email, setEmail] = useState("");
+
+	const handleChange = (e) => {
+		setEmail(e.target.value);
+	};
+	const handleSubmit = () => {
+		updateEmail(email);
+		setTimeout(() => {
+			showMessage("Email changed successfully", "", "success", toast);
+		}, 2000);
+	};
+	return (
+		<Box>
+			<Modal isOpen={isOpen} onClose={onClose}>
+				<ModalOverlay />
+				<ModalContent>
+					<ModalHeader>
+						To change your email simply enter the new email below
+					</ModalHeader>
+					<ModalCloseButton />
+					<ModalBody>
+						<FormControl id="" mb="3">
+							<FormLabel>email</FormLabel>
+							<Textarea
+								name="emailchange"
+								value={email}
+								onChange={handleChange}
+								p="2"
+								fontSize="md"
+							/>
+						</FormControl>
+					</ModalBody>
+
+					<ModalFooter>
+						<Button
+							onClick={() => {
+								handleSubmit(email);
+							}}
+							w="100%"
+							p="6"
+							color="white"
+							bgColor="brand.secondary"
+							_hover={{ bgColor: "brand.secondary" }}
+						>
+							Submit
+						</Button>
+					</ModalFooter>
+				</ModalContent>
+			</Modal>
+		</Box>
+	);
+}
