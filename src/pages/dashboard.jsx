@@ -1,7 +1,5 @@
 import {
 	Box,
-	Text,
-	Flex,
 	Button,
 	Center,
 	Divider,
@@ -52,7 +50,7 @@ export default function Dashboard() {
 			setTimeout(() => {
 				showMessage(
 					"Timer created!",
-					"A new timer DashNavhas been created ",
+					"A new timer card has been created ",
 					"success",
 					toast
 				);
