@@ -57,7 +57,7 @@ export default function Nav({ displayName, logout, onOpen }) {
 				bgColor="brand.blue"
 				color="white"
 				p="3"
-				_hover={{ opacity: "0.95" }}
+				_hover={{ opacity: "0.9" }}
 				onClick={() => logout()}
 			>
 				LOG OUT

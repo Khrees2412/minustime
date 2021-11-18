@@ -140,7 +140,6 @@ export default function Dashboard() {
 								/>
 							))
 						)
-						// : "You don't have any timer cards yet.. Start creating!"
 					}
 				</Grid>
 			</Box>

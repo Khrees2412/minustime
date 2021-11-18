@@ -46,42 +46,34 @@ export default function Timer({ eventDate }) {
 	});
 
 	const { day, hrs, mins, secs } = currentTime;
+	const styles = {
+		color: "purple",
+		fontWeight: 400,
+	};
 
 	return currentTime !== "Expired" ? (
 		<VStack className="time-display" spacing="8" color="brand.primary">
 			<HStack spacing="5">
 				<Box className="day">
 					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-						{day} <span style={{ color: "purple" }}>d</span>
-					</Text>
-					<Text fontSize={["xl", "2xl"]} fontWeight="light">
-						{/* {day === 1 ? "day" : "days"} */}
+						{day} <span style={styles}>d</span>
 					</Text>
 				</Box>
 				<Box className="hrs">
 					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-						{hrs} <span style={{ color: "purple" }}>h</span>
-					</Text>
-					<Text fontSize={["xl", "2xl"]} fontWeight="light">
-						{/* {hrs === 1 ? "hour" : "hours"} */}
+						{hrs} <span style={styles}>h</span>
 					</Text>
 				</Box>
 			</HStack>
 			<HStack spacing="5">
 				<Box className="mins">
 					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-						{mins} <span style={{ color: "purple" }}>m</span>
-					</Text>
-					<Text fontSize={["xl", "2xl"]} fontWeight="light">
-						{/* {mins === 1 ? "minute" : "minutes"} */}
+						{mins} <span style={styles}>m</span>
 					</Text>
 				</Box>
 				<Box className="secs">
 					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-						{secs} <span style={{ color: "purple" }}>s</span>
-					</Text>
-					<Text fontSize={["xl", "2xl"]} fontWeight="light">
-						{/* {secs === 1 ? "second" : "seconds"} */}
+						{secs} <span style={styles}>s</span>
 					</Text>
 				</Box>
 			</HStack>
@@ -98,4 +90,3 @@ const TimeUp = () => {
 		</>
 	);
 };
-// {!eventDate ? "No date set" : eventDate}

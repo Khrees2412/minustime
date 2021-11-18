@@ -1,4 +1,12 @@
-import { Box, Flex, Link, Heading, Image, Text } from "@chakra-ui/react";
+import {
+	Box,
+	Flex,
+	Link,
+	Heading,
+	Image,
+	Text,
+	VStack,
+} from "@chakra-ui/react";
 import Typed from "react-typed";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -22,11 +30,11 @@ export default function Home() {
 			>
 				<Box>
 					<Box mt="10">
-						<Heading fontSize={["4xl", "6xl"]} mb={["2", "5"]}>
+						<Heading fontSize={["2xl", "6xl"]} mb={["2", "5"]}>
 							How long until
 						</Heading>
 						<Heading
-							fontSize={["5xl", "6xl"]}
+							fontSize={["3xl", "6xl"]}
 							bgGradient="linear(to-r, pink.600, purple.600)"
 							bgClip="text"
 						>
@@ -70,24 +78,11 @@ export default function Home() {
 				w={["100%", "initial"]}
 				mx="auto"
 				my="10"
-				h={["70vh", "500px"]}
+				h={["350px", "500px"]}
 				bgColor="brand.light"
 				color="#121212"
 				borderBottom="2px solid purple"
 			>
-				<Box fontWeight="bold" mt="15" p="5">
-					<Heading fontSize={["4xl", "5xl"]} textAlign="center">
-						Create the coolest
-					</Heading>
-					<Heading
-						fontSize={["5xl", "6xl"]}
-						bgGradient="linear(to-r, pink.500, brand.blue)"
-						bgClip="text"
-						textAlign="center"
-					>
-						Countdown Timers
-					</Heading>
-				</Box>
 				<Image
 					src={season}
 					alt="clock"
@@ -96,6 +91,25 @@ export default function Home() {
 					p="5"
 					mb="10"
 				/>
+				<VStack spacing="8" fontWeight="bold" mt="20" p="5">
+					<Box>
+						<Heading fontSize={["4xl", "5xl"]} textAlign="center">
+							Create the coolest
+						</Heading>
+						<Heading
+							fontSize={["5xl", "6xl"]}
+							bgGradient="linear(to-r, pink.500, brand.blue)"
+							bgClip="text"
+							textAlign="center"
+						>
+							Countdown Timers
+						</Heading>
+					</Box>
+					<Text>
+						MinusTime allows you to create really beautiful timer
+						cards. Watch the time countdown in real-time.
+					</Text>
+				</VStack>
 			</Flex>
 
 			<Flex
@@ -104,7 +118,7 @@ export default function Home() {
 				w={["80%", "initial"]}
 				mx="auto"
 				my="10"
-				h={["60vh", "500px"]}
+				h={["350px", "500px"]}
 			>
 				<Box mt="20">
 					<Heading fontSize={["4xl", "5xl"]} mb="5">
