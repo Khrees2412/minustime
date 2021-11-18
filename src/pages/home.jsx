@@ -1,12 +1,4 @@
-import {
-	Box,
-	Flex,
-	Link,
-	Heading,
-	Image,
-	Text,
-	VStack,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, Heading, Image, Text, Stack } from "@chakra-ui/react";
 import Typed from "react-typed";
 import Nav from "../components/Nav";
 import Footer from "../components/Footer";
@@ -21,10 +13,11 @@ export default function Home() {
 			<Flex
 				direction={["column", "row"]}
 				justifyContent="space-around"
-				w={["80%", "initial"]}
+				alignItems={["center", "intial"]}
+				w={["90%", "initial"]}
 				mx="auto"
 				my="10"
-				h={["70vh", "500px"]}
+				h={["400px", "500px"]}
 				bgColor="brand.primary"
 				color="brand.light"
 			>
@@ -34,7 +27,7 @@ export default function Home() {
 							How long until
 						</Heading>
 						<Heading
-							fontSize={["3xl", "6xl"]}
+							fontSize={["2xl", "6xl"]}
 							bgGradient="linear(to-r, pink.600, purple.600)"
 							bgClip="text"
 						>
@@ -53,10 +46,11 @@ export default function Home() {
 						<Link
 							href="/signup"
 							p="3"
-							border="2px"
+							border="8px"
 							borderColor="brand.light"
 							borderRadius="0.8rem"
-							color="brand.light"
+							bgColor="brand.light"
+							color="brand.primary"
 							fontWeight="bold"
 						>
 							Try it out
@@ -64,40 +58,40 @@ export default function Home() {
 					</Box>
 				</Box>
 
-				<Image
-					src={event}
-					alt="event"
-					w="350px"
-					h={["320px", "450px"]}
-				/>
+				<Box w="350px">
+					<Image src={event} alt="event" />
+				</Box>
 			</Flex>
-
-			<Flex
+			{/* Second Container*/}
+			<Stack
 				direction={["column", "row"]}
 				justifyContent="space-around"
 				w={["100%", "initial"]}
 				mx="auto"
-				my="10"
-				h={["350px", "500px"]}
+				mt="20"
+				p={["initial", "10"]}
+				h={["initial", "80vh"]}
 				bgColor="brand.light"
 				color="#121212"
-				borderBottom="2px solid purple"
 			>
-				<Image
-					src={season}
-					alt="clock"
+				<Box
 					w="350px"
-					h={["320px", "450px"]}
-					p="5"
-					mb="10"
-				/>
-				<VStack spacing="8" fontWeight="bold" mt="20" p="5">
-					<Box>
-						<Heading fontSize={["4xl", "5xl"]} textAlign="center">
+					// h={["initial", "450px"]}
+					px="5"
+					py="3"
+					mt={["7", "15"]}
+					mb={["5", "10"]}
+				>
+					<Image src={season} alt="clock" />
+				</Box>
+
+				<Box fontWeight="bold" mt={["initial", "20"]} mb={["10"]} p="5">
+					<Box mb={["8", "initial"]}>
+						<Heading fontSize={["3xl", "5xl"]} textAlign="center">
 							Create the coolest
 						</Heading>
 						<Heading
-							fontSize={["5xl", "6xl"]}
+							fontSize={["4xl", "6xl"]}
 							bgGradient="linear(to-r, pink.500, brand.blue)"
 							bgClip="text"
 							textAlign="center"
@@ -105,25 +99,29 @@ export default function Home() {
 							Countdown Timers
 						</Heading>
 					</Box>
-					<Text>
+					<Text align={["center", "initial"]}>
 						MinusTime allows you to create really beautiful timer
 						cards. Watch the time countdown in real-time.
 					</Text>
-				</VStack>
-			</Flex>
-
-			<Flex
+				</Box>
+			</Stack>
+			<Stack
 				direction={["column", "row"]}
 				justifyContent="space-around"
-				w={["80%", "initial"]}
+				w={["100%", "initial"]}
 				mx="auto"
 				my="10"
-				h={["350px", "500px"]}
+				h={["initial", "500px"]}
 			>
-				<Box mt="20">
-					<Heading fontSize={["4xl", "5xl"]} mb="5">
+				<Box mt={["5", "20"]}>
+					<Heading
+						fontSize={["3xl", "5xl"]}
+						mb="5"
+						textAlign={["center", "initial"]}
+					>
 						Never lose track of your most
 						<Text
+							fontSize={["4xl", "6xl"]}
 							bgGradient="linear(to-r, pink.600, purple.600)"
 							bgClip="text"
 						>
@@ -132,15 +130,11 @@ export default function Home() {
 					</Heading>
 				</Box>
 
-				<Image
-					src={schedule}
-					alt="scheduler"
-					w="350px"
-					h={["320px", "450px"]}
-					p="5"
-					my="10"
-				/>
-			</Flex>
+				<Box w="350px" h={["320px", "450px"]} p="5" my="10">
+					<Image src={schedule} alt="scheduler" />
+				</Box>
+			</Stack>
+
 			<Footer />
 		</>
 	);

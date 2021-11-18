@@ -2,19 +2,23 @@ import { Box, Link, Flex } from "@chakra-ui/react";
 
 export default function Footer() {
 	return (
-		<Box color="brand.primary" bgColor="brand.secondary" h="20vh" p="4">
+		<Box
+			color="brand.primary"
+			bgColor="brand.secondary"
+			h={["10vh", "20vh"]}
+			p={["2", "4"]}
+			w="100%"
+		>
 			<Flex
-				direction={["column", "row"]}
 				justifyContent="space-between"
-				w="50%"
-				m="auto"
+				mx={["10", "20"]}
 				alignItems="center"
-				fontSize="2xl"
+				fontSize={["lg", "2xl"]}
 				fontWeight="semi-bold"
 			>
-				<Link href="https://khrees.netlify.app">Contact</Link>
 				<Link href="/login">Login</Link>
 				<Link href="/signup">Start Creating</Link>
+				<Link href="https://khrees.netlify.app">Contact</Link>
 			</Flex>
 		</Box>
 	);
