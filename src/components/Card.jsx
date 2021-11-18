@@ -11,7 +11,13 @@ export default function Card({ eventDate, title, deleteUserCard, id }) {
 			w={["260px", "400px"]}
 			mx="auto"
 		>
-			<Text color="orange.500" fontWeight="bold" fontSize="md">
+			<Text
+				color="blue.600"
+				w="100%"
+				fontWeight="bold"
+				fontSize="4xl"
+				textAlign="center"
+			>
 				{title}
 			</Text>
 
@@ -19,12 +25,12 @@ export default function Card({ eventDate, title, deleteUserCard, id }) {
 
 			<Button
 				mt="2"
-				color="red.600"
-				bgColor="white"
-				_hover={{ color: "white", bgColor: "red.500" }}
+				color="white"
+				bgColor="red.500"
+				_hover={{ opacity: "0.95" }}
 				onClick={() => deleteUserCard(id)}
 			>
-				Delete card
+				Delete
 			</Button>
 		</Box>
 	);

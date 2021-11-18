@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Text, Box, VStack } from "@chakra-ui/react";
+import { Text, Box, VStack, HStack } from "@chakra-ui/react";
 import "./Timer.css";
 
 export default function Timer({ eventDate }) {
@@ -38,7 +38,7 @@ export default function Timer({ eventDate }) {
 				secs: seconds,
 			});
 
-			if (distance < 0) {
+			if (distance <= 0) {
 				clearInterval(x);
 				setCurrentTime("Expired");
 			}
@@ -49,38 +49,42 @@ export default function Timer({ eventDate }) {
 
 	return currentTime !== "Expired" ? (
 		<VStack className="time-display" spacing="8" color="brand.primary">
-			<Box className="a">
-				<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-					{day}
-				</Text>
-				<Text fontSize={["xl", "2xl"]} fontWeight="light">
-					{day === 1 ? "day" : "days"}
-				</Text>
-			</Box>
-			<Box className="b">
-				<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-					{hrs}
-				</Text>
-				<Text fontSize={["xl", "2xl"]} fontWeight="light">
-					{hrs === 1 ? "hour" : "hours"}
-				</Text>
-			</Box>
-			<Box className="c">
-				<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-					{mins}
-				</Text>
-				<Text fontSize={["xl", "2xl"]} fontWeight="light">
-					{mins === 1 ? "minute" : "minutes"}
-				</Text>
-			</Box>
-			<Box className="d">
-				<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
-					{secs}
-				</Text>
-				<Text fontSize={["xl", "2xl"]} fontWeight="light">
-					{secs === 1 ? "second" : "seconds"}
-				</Text>
-			</Box>
+			<HStack spacing="5">
+				<Box className="day">
+					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
+						{day} <span style={{ color: "purple" }}>d</span>
+					</Text>
+					<Text fontSize={["xl", "2xl"]} fontWeight="light">
+						{/* {day === 1 ? "day" : "days"} */}
+					</Text>
+				</Box>
+				<Box className="hrs">
+					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
+						{hrs} <span style={{ color: "purple" }}>h</span>
+					</Text>
+					<Text fontSize={["xl", "2xl"]} fontWeight="light">
+						{/* {hrs === 1 ? "hour" : "hours"} */}
+					</Text>
+				</Box>
+			</HStack>
+			<HStack spacing="5">
+				<Box className="mins">
+					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
+						{mins} <span style={{ color: "purple" }}>m</span>
+					</Text>
+					<Text fontSize={["xl", "2xl"]} fontWeight="light">
+						{/* {mins === 1 ? "minute" : "minutes"} */}
+					</Text>
+				</Box>
+				<Box className="secs">
+					<Text fontSize={["2xl", "4xl"]} fontWeight="bold">
+						{secs} <span style={{ color: "purple" }}>s</span>
+					</Text>
+					<Text fontSize={["xl", "2xl"]} fontWeight="light">
+						{/* {secs === 1 ? "second" : "seconds"} */}
+					</Text>
+				</Box>
+			</HStack>
 		</VStack>
 	) : (
 		<TimeUp />

@@ -19,9 +19,10 @@ import {
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import Loading from "../components/Loading";
+import ScrollToTop from "../components/ScrollToTop";
 import Card from "../components/Card";
 import DashNav from "../components/DashNav";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { showMessage } from "../utils/toast";
 import { useAuth } from "../context/auth";
 import { useDb } from "../context/db";
@@ -31,18 +32,28 @@ import "./datepicker.css";
 export default function Dashboard() {
 	const toast = useToast();
 	const { currentUser, logout } = useAuth();
-	const { addCard, deleteCard, loading, error, card, uid } = useDb();
+	const { addCard, deleteCard, loading, card, uid } = useDb();
+	// error,
 
 	const displayName = currentUser?.displayName;
 
+	// const [localCard, setLocalCard] = useState([])
 	const [startDate, setStartDate] = useState(false);
 	const [title, setTitle] = useState("");
+	const [showScroll, setShowScroll] = useState(false);
 
 	const { isOpen, onOpen, onClose } = useDisclosure();
 
 	const handleChange = (e) => {
 		setTitle(e.target.value);
 	};
+
+	useEffect(() => {
+		const halfWindowHeight = window.innerHeight / 2;
+		if (window.innerHeight === halfWindowHeight) {
+			setShowScroll(true);
+		}
+	}, []);
 
 	const add = (title, date) => {
 		if (card.length < 6) {
@@ -96,15 +107,15 @@ export default function Dashboard() {
 
 	return (
 		<Box vh="100%" bgColor="brand.primary">
-			<DashNav displayName={displayName} logout={logout} />
+			<DashNav
+				displayName={displayName}
+				logout={logout}
+				onOpen={onOpen}
+			/>
 			<Box bgColor="brand.light">
 				<Divider />
 			</Box>
-			<Center mt="5" mb="8">
-				<Button color="brand.btn" onClick={onOpen} mt="5">
-					Create a Countdown!
-				</Button>
-			</Center>
+
 			<Box mt="20" w="70%" mx="auto">
 				<Grid
 					templateColumns={["repeat(1, 1fr)", "repeat(2, 1fr)"]}
@@ -122,7 +133,7 @@ export default function Dashboard() {
 									eventDate={
 										c.date
 											? c.date
-											: "Dec 24 2021, 00:00:00 am"
+											: "Dec 24 2060, 00:00:00 am"
 									}
 									title={c.title}
 									deleteUserCard={deleteUserCard}
@@ -133,11 +144,7 @@ export default function Dashboard() {
 					}
 				</Grid>
 			</Box>
-			<Center>
-				<Button color="brand.btn" onClick={onOpen} mt="5" mb="10">
-					{card.length === 6 ? "" : "Add another timer card"}
-				</Button>
-			</Center>
+			<Center>{showScroll && <ScrollToTop />}</Center>
 
 			<Box>
 				<Modal isOpen={isOpen} onClose={onClose}>
@@ -196,3 +203,13 @@ export default function Dashboard() {
 		</Box>
 	);
 }
+
+export const CreateCountdown = ({ onOpen }) => {
+	return (
+		<Box>
+			<Button color="brand.btn" onClick={onOpen}>
+				Create a Countdown!
+			</Button>
+		</Box>
+	);
+};
