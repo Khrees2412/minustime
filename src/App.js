@@ -6,12 +6,12 @@ import Dashboard from "./pages/dashboard";
 import PrivateRoute from "./utils/privateRoute";
 import { AuthProvider } from "./context/auth";
 import { DbProvider } from "./context/db";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 
 function App() {
 	return (
-		<Router>
+		<Routes>
 			<AuthProvider>
 				<DbProvider>
 					<Box
@@ -19,21 +19,21 @@ function App() {
 						h="100vh"
 						color="brand.secondary"
 					>
-						<Switch>
-							<Route exact path="/" component={Home} />
-							<Route path="/signup" component={Signup} />
-							<Route path="/login" component={Login} />
-							<Route path="/set-name" component={Name} />
+						<Routes>
+							<Route exact path="/" element={Home} />
+							<Route path="/signup" element={Signup} />
+							<Route path="/login" element={Login} />
+							<Route path="/set-name" element={Name} />
 							<PrivateRoute
 								exact
 								path="/dashboard"
-								component={Dashboard}
+								element={Dashboard}
 							/>
-						</Switch>
+						</Routes>
 					</Box>
 				</DbProvider>
 			</AuthProvider>
-		</Router>
+		</Routes>
 	);
 }
 

@@ -1,8 +1,9 @@
-import { Route, Redirect } from "react-router-dom";
+import { Route, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 export default function PrivateRoute({ component: Component, ...rest }) {
 	const { currentUser } = useAuth();
+	const navigate = useNavigate()
 
 	return (
 		<Route
@@ -11,7 +12,7 @@ export default function PrivateRoute({ component: Component, ...rest }) {
 				return currentUser ? (
 					<Component {...props} />
 				) : (
-					<Redirect to="/login" />
+					navigate("/login")
 				);
 			}}
 		></Route>

@@ -10,11 +10,11 @@ import {
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useAuth } from "../context/auth";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 
 export default function Login() {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { login, currentUser } = useAuth();
 
 	const info = {
@@ -28,7 +28,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (currentUser) {
-			history.push("/dashboard");
+			navigate("/dashboard");
 		}
 	});
 
@@ -48,7 +48,7 @@ export default function Login() {
 			setError("");
 			setLoading(true);
 			await login(email, password);
-			history.push("/dashboard");
+			navigate("/dashboard");
 		} catch (err) {
 			setError(err.message)
 		}

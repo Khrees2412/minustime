@@ -9,12 +9,12 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 import Loading from "../components/Loading";
 
 export default function Signup() {
-	const history = useHistory();
+	const navigate = useNavigate();
 	const { signup, currentUser } = useAuth();
 
 	const info = {
@@ -28,7 +28,7 @@ export default function Signup() {
 
 	useEffect(() => {
 		if (currentUser) {
-			history.push("/dashboard");
+			navigate("/dashboard");
 		}
 	});
 
@@ -48,18 +48,18 @@ export default function Signup() {
 			setError("");
 			setLoading(true);
 			await signup(email, password);
-			history.push("/set-name");
+			navigate("/set-name");
 		} catch (err) {
 			//setError(err)
-			setError(
-				err.message
-			);
+			setError(err.message);
 		}
 
 		setLoading(false);
 	};
 
-	return loading ?  <Loading />  : (
+	return loading ? (
+		<Loading />
+	) : (
 		<Box w={["95%", "50%"]} mx="auto">
 			<Box mt="" p="2">
 				<FormErrorMessage>{error}</FormErrorMessage>
