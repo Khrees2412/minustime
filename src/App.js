@@ -11,29 +11,25 @@ import { Box } from "@chakra-ui/react";
 
 function App() {
 	return (
-		<Routes>
-			<AuthProvider>
-				<DbProvider>
-					<Box
-						bgColor="brand.primary"
-						h="100vh"
-						color="brand.secondary"
-					>
-						<Routes>
-							<Route exact path="/" element={Home} />
-							<Route path="/signup" element={Signup} />
-							<Route path="/login" element={Login} />
-							<Route path="/set-name" element={Name} />
-							<PrivateRoute
-								exact
-								path="/dashboard"
-								element={Dashboard}
-							/>
-						</Routes>
-					</Box>
-				</DbProvider>
-			</AuthProvider>
-		</Routes>
+		// <Routes>
+		<AuthProvider>
+			<DbProvider>
+				<Box bgColor="brand.primary" h="100vh" color="brand.secondary">
+					<Routes>
+						<Route exact path="/" element={Home} />
+						<Route path="/signup" element={Signup} />
+						<Route path="/login" element={Login} />
+						<Route path="/set-name" element={Name} />
+						<PrivateRoute
+							exact
+							path="/dashboard"
+							element={Dashboard}
+						/>
+					</Routes>
+				</Box>
+			</DbProvider>
+		</AuthProvider>
+		// </Routes>
 	);
 }
 

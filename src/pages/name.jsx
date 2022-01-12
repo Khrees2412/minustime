@@ -1,12 +1,12 @@
 import { Box, Input, FormControl, FormLabel, Button } from "@chakra-ui/react";
 import { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/auth";
 
 export default function Name() {
 	const [name, setName] = useState("");
 	const { currentUser } = useAuth();
-	const history = useHistory();
+	const navigate = useNavigate();
 
 	const handleChange = (e) => {
 		setName(e.target.value);
@@ -18,7 +18,7 @@ export default function Name() {
 			displayName: name,
 		});
 		setTimeout(() => {
-			history.push("/dashboard");
+			navigate("/dashboard");
 		}, 3000);
 	};
 	return (
